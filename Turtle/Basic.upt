@@ -53,7 +53,7 @@ CONSOLE_APP_MAIN
 
 	TurtleServer guiserver;
 	guiserver.Host("<:host:>");
-	guiserver.Port(<:port:>);
+	guiserver.HtmlPort(<:port:>);
 	guiserver.MaxConnections(<:limit:>);
 	RunTurtleGui(guiserver, AppMainLoop);
 }

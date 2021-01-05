@@ -26,7 +26,7 @@ CONSOLE_APP_MAIN
 
 	TurtleServer guiserver;
 	guiserver.Host("localhost");
-	guiserver.Port(8888);
+	guiserver.HtmlPort(8888);
 	guiserver.MaxConnections(100);
 	RunTurtleGui(guiserver, AppMainLoop);
 }
