@@ -58,24 +58,36 @@ bool TurtleServer::StartSession()
 #endif
 
 	IpAddrInfo ipinfo;
-	ipinfo.Execute(ip, port, IpAddrInfo::FAMILY_IPV4);
+	ipinfo.Execute(ip, html_port, IpAddrInfo::FAMILY_IPV4);
 
-	TcpSocket server;
+	IpAddrInfo ipinfo_ws;
+	ipinfo_ws.Execute(ip, ws_port, IpAddrInfo::FAMILY_IPV4);
+
+	TcpSocket server, ws_server;
 
 #ifdef _DEBUG
 	int cnt = 0;
-	while(!server.Listen(ipinfo, port, 5, false, true)) {
-		LLOG("Trying to start listening (other process using the same port?) " << ++cnt);
+	while(!server.Listen(ipinfo, html_port, 5, false, true)) {
+		LLOG("Trying to start listening on html port (other process using the same port?) " << ++cnt);
+		Sleep(1000);
+	}
+	while(!ws_server.Listen(ipinfo_ws, ws_port, 5, false, true)) {
+		LLOG("Trying to start listening on ws port (other process using the same port?) " << ++cnt);
 		Sleep(1000);
 	}
 #else
 	if(!server.Listen(ipinfo, port, 5, false, true)) {
-		LLOG("Cannot open server socket for listening!");
+		LLOG("Cannot open server socket for listening on html port!");
+		Exit(1);
+	}
+	if(!ws_server.Listen(ipinfo_ws, ws_port, 5, false, true)) {
+		LLOG("Cannot open server socket for listening on ws port!");
 		Exit(1);
 	}
 #endif
 
-	LLOG("Starting to listen on " << port << ", pid: " << getpid());
+	LLOG("Starting to listen on html port " << html_port << ", pid: " << getpid());
+	LLOG("Starting to listen on ws port " << ws_port << ", pid: " << getpid());
 
 	for(;;) {
 		sUpdateChildList();
@@ -84,10 +96,10 @@ bool TurtleServer::StartSession()
 		TcpSocket socket;
 		if(!socket.Accept(server))
 			continue;
-		if(!sSendTurtleHtml(socket, host, port))
+		if(!sSendTurtleHtml(socket, host, ws_port))
 			continue;
 		websocket.NonBlocking();
-		while(!websocket.Accept(server))
+		while(!websocket.Accept(ws_server))
 			Sleep(20);
 		LLOG("Websocket connection accepted. IP: " << websocket.GetPeerAddr());
 #ifdef PLATFORM_POSIX

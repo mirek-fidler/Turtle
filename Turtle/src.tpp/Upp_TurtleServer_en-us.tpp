@@ -37,10 +37,16 @@ leServer][@(0.0.255) `&]_[* Host]([@(0.0.255) const]_[_^Upp`:`:String^ String][@
 Returns `*this for method chaining.&]
 [s3;%% &]
 [s4; &]
-[s5;:Upp`:`:TurtleServer`:`:Port`(int`): [_^Upp`:`:TurtleServer^ TurtleServer][@(0.0.255) `&
-]_[* Port]([@(0.0.255) int]_[*@3 port])&]
-[s2;%% Sets the connection port number. Default port number is 8888. 
-Returns `*this for method chaining.&]
+[s5;:Upp`:`:TurtleServer`:`:HtmlPort`(int`): [_^Upp`:`:TurtleServer^ TurtleServer][@(0.0.255) `&
+]_[* HtmlPort]([@(0.0.255) int]_[*@3 port])&]
+[s2;%% Sets the connection port number for serving the html file. 
+Default is 8888. Returns `*this for method chaining.&]
+[s3;%% &]
+[s4; &]
+[s5;:Upp`:`:TurtleServer`:`:WsPort`(int`): [_^Upp`:`:TurtleServer^ TurtleServer][@(0.0.255) `&
+]_[* WsPort]([@(0.0.255) int]_[*@3 port])&]
+[s2;%% Sets the connection port number for websocket connection. 
+Default is 8887. Returns `*this for method chaining.&]
 [s3;%% &]
 [s4; &]
 [s5;:Upp`:`:TurtleServer`:`:MaxConnections`(int`): [_^Upp`:`:TurtleServer^ TurtleServer

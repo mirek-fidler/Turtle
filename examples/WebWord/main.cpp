@@ -70,13 +70,14 @@ CONSOLE_APP_MAIN
 
 #ifdef _DEBUG
 	TurtleServer::DebugMode();
+	WebSocket::Trace();
 #endif
 
 	// MemoryLimitKb(100000000); // Can aid preventing DDoS attacks.
 
 	TurtleServer guiserver;
 	guiserver.Host("localhost");
-	guiserver.Port(8888);
+	guiserver.HtmlPort(8888);
 	guiserver.MaxConnections(100);
 	RunTurtleGui(guiserver, AppMainLoop);
 }

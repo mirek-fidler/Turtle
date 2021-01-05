@@ -8,12 +8,13 @@ namespace Upp {
 class TurtleServer : public VirtualGui {
 public:
     TurtleServer()                                         {}
-    TurtleServer(const String& host, int port)             { Host(host).Port(port); }
-    TurtleServer(const String& ip, String& host, int port) { Bind(ip).Host(host).Port(port); }
+    TurtleServer(const String& host, int port)             { Host(host).HtmlPort(port).WsPort(port + 1); }
+    TurtleServer(const String& ip, String& host, int port) { Bind(ip).Host(host).HtmlPort(port).WsPort(port + 1); }
 
     TurtleServer&       Bind(const String& addr)           { TurtleServer::ip   = addr; return *this; }
     TurtleServer&       Host(const String& host)           { TurtleServer::host = host; return *this; }
-    TurtleServer&       Port(int port)                     { TurtleServer::port = port; return *this; }
+    TurtleServer&       HtmlPort(int port)                 { TurtleServer::html_port = port; return *this; }
+    TurtleServer&       WsPort(int port)                   { TurtleServer::ws_port = port; return *this; }
     TurtleServer&       MaxConnections(int limit)          { TurtleServer::connection_limit = max(1, limit); return *this; }
 
     static void         DebugMode(bool b = true)           { TurtleServer::debugmode = b; }
@@ -141,7 +142,8 @@ private:
     static int          serial_time0;
     static bool         quit;
     static String       host;
-    static int          port;
+    static int          html_port;
+    static int          ws_port;
     static String       ip;
     static int          connection_limit;
     static bool         debugmode;
