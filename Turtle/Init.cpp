@@ -42,3 +42,7 @@ void RunTurtleGui(TurtleServer& gui, Event<> app_main)
 }
 
 }
+
+#ifdef flagMAIN // For automated builds.
+CONSOLE_APP_MAIN {}
+#endif
