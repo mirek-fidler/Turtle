@@ -63,8 +63,6 @@ void AppMainLoop()
 	WebWord().Run();
 }
 
-#ifdef flagTURTLEGUI
-
 CONSOLE_APP_MAIN
 {
 
@@ -81,13 +79,3 @@ CONSOLE_APP_MAIN
 	guiserver.MaxConnections(100);
 	RunTurtleGui(guiserver, AppMainLoop);
 }
-
-#else
-
-GUI_APP_MAIN
-{
-	AppMainLoop();
-}
-
-#endif
-

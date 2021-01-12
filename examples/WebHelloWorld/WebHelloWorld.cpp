@@ -1,8 +1,4 @@
-#ifdef flagTURTLEGUI
 #include <Turtle/Turtle.h>
-#else
-#include <CtrlLib/CtrlLib.h>
-#endif
 
 // Try connecting to "localhost:8888" via your web browser.
 
@@ -12,8 +8,6 @@ void AppMainLoop()
 {
 	PromptOK("Hello, world!");
 }
-
-#ifdef flagTURTLEGUI
 
 CONSOLE_APP_MAIN
 {
@@ -30,13 +24,3 @@ CONSOLE_APP_MAIN
 	guiserver.MaxConnections(100);
 	RunTurtleGui(guiserver, AppMainLoop);
 }
-
-#else
-
-GUI_APP_MAIN
-{
-	AppMainLoop();
-}
-
-#endif
-

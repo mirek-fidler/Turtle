@@ -1,11 +1,7 @@
 #ifndef _WebWord_WebWord_h
 #define _WebWord_WebWord_h
 
-#ifdef flagTURTLEGUI
 #include <Turtle/Turtle.h>
-#else
-#include <CtrlLib/CtrlLib.h>
-#endif
 
 #include <RichEdit/RichEdit.h>
 #include <PdfDraw/PdfDraw.h>

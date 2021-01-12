@@ -1,13 +1,11 @@
 description "A  \"Hello world\" GUI example demonstrating the Turtle package\377";
 
-uses(TURTLEGUI) Turtle;
-
-uses(!TURTLEGUI) CtrlLib;
+uses
+	Turtle;
 
 file
 	WebHelloWorld.cpp;
 
 mainconfig
-	"" = "TURTLEGUI",
-	"" = "GUI";
+	"" = "";
 
