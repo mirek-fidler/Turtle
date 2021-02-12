@@ -90,20 +90,6 @@ const static VectorMap<dword, dword> sKeyCodeMap = {
 	{ WEBKEY(121), K_F10             },
 	{ WEBKEY(122), K_F11             },
 	{ WEBKEY(123), K_F12             },
-	{ WEBKEY(219), K_CTRL_LBRACKET   },
-	{ WEBKEY(221), K_CTRL_RBRACKET   },
-	{ WEBKEY(173), K_CTRL_MINUS      }, // Firefox specific.
-	{ WEBKEY(189), K_CTRL_MINUS      },
-	{ WEBKEY(192), K_CTRL_GRAVE      },
-	{ WEBKEY(191), K_CTRL_SLASH      },
-	{ WEBKEY(220), K_CTRL_BACKSLASH  },
-	{ WEBKEY(188), K_CTRL_COMMA      },
-	{ WEBKEY(190), K_CTRL_PERIOD     },
-	{ WEBKEY(59) , K_CTRL_SEMICOLON  }, // Firefox specific.
-	{ WEBKEY(186), K_CTRL_SEMICOLON  },
-	{ WEBKEY(61) , K_CTRL_EQUAL      }, // Firefox specific.
-	{ WEBKEY(187), K_CTRL_EQUAL      },
-	{ WEBKEY(222), K_CTRL_APOSTROPHE },
 };
 
 #undef WEBKEY
@@ -112,10 +98,30 @@ dword TurtleServer::TranslateWebKeyToK(dword key)
 {
 	int i = sKeyCodeMap.Find(key);
 
-	if(i < 0)
-		return key | K_DELTA;
+	if(i < 0) {
+		if(GetCtrl()) { // Fixes the handling of the below keys.
+			key = decode(key,
+					219, K_CTRL_LBRACKET,
+					221, K_CTRL_RBRACKET,
+					173, K_CTRL_MINUS,
+					189, K_CTRL_MINUS,
+					192, K_CTRL_GRAVE,
+					191, K_CTRL_SLASH,
+					220, K_CTRL_BACKSLASH,
+					188, K_CTRL_COMMA,
+					190, K_CTRL_PERIOD,
+					59,  K_CTRL_SEMICOLON,
+					186, K_CTRL_SEMICOLON,
+					61,  K_CTRL_EQUAL,
+					187, K_CTRL_EQUAL,
+					222, K_CTRL_APOSTROPHE, key + K_DELTA);
+		}
+		else
+			key |= K_DELTA;
 
-	key = sKeyCodeMap[i];
+	}
+	else
+		key = sKeyCodeMap[i];
 
 	if(key == K_ALT_KEY || key == K_CTRL_KEY || key == K_SHIFT_KEY)
 		return key;
