@@ -76,7 +76,7 @@ bool TurtleServer::StartSession()
 		Sleep(1000);
 	}
 #else
-	if(!server.Listen(ipinfo, port, 5, false, true)) {
+	if(!server.Listen(ipinfo, html_port, 5, false, true)) {
 		LLOG("Cannot open server socket for listening on html port!");
 		Exit(1);
 	}
